@@ -4,22 +4,28 @@ class RequestDispatcher
 
   class << self
     def call(params)
-      new(params).process_request
+      new(params).process_request.to_json
     end
   end
 
   def initialize(params)
-    @app = SanareiApp.find_by(app_id: params[:shortCode])
+    puts 'AppCODE'
+    puts params
+    @app = SanareiApp.find_by(app_code: params[:shortCode])
+
+    res = @app.nil? ? 'App not found' : 'App found'
 
     @state = 'end' if @app.nil?
-    @response = "END AppID #{@app}#"
+    @response = "END #{res}"
   end
 
   def process_request
-    if state == 'end'
-      { responseMessage: response, responseExitCode: 200 }
-    else
-      { responseMessage: response, responseExitCode: 200 }
-    end
+    end_session = state == 'end'
+    {
+      shouldClose: end_session,
+      ussdMenu: response,
+      responseMessage: response,
+      responseExitCode: 200,
+    }
   end
 end
