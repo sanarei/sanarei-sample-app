@@ -1,6 +1,6 @@
 development:
   clients:
     default:
-      database: sanarei_middleware
+      database: sanarei_sample_app
       hosts:
         - localhost:27017
