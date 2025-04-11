@@ -28,3 +28,6 @@
 
 # Database
  *.sqlite
+
+ # Logs
+*.log
