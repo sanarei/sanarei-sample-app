@@ -1,0 +1,14 @@
+Enter your details below to register.
+
+<form action="/users/login" method="POST">
+  <label for="pin">PIN:</label><br>
+  <input type="password" id="pin" name="pin" required><br><br>
+
+  <input type="submit" value="Submit">
+</form>
+
+<br/>
+<br/>
+<%= link_to 'Home', '/' %><br/>
+<%= link_to 'Register', '/users/register' %><br/>
+<%= link_to 'Contact details', '/static_pages/contact_us' %><br/>

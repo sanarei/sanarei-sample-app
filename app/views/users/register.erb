@@ -1,0 +1,20 @@
+Enter your details below to register.
+
+<form action="/users/register" method="POST">
+  <label for="name">Full Name:</label><br>
+  <input type="text" id="name" name="name" required><br><br>
+
+  <label for="national_id">National ID:</label><br>
+  <input type="text" id="national_id" name="national_id" required><br><br>
+
+  <label for="pin">PIN:</label><br>
+  <input type="password" id="pin" name="pin" required><br><br>
+
+  <input type="submit" value="Submit">
+</form>
+
+<br/>
+<br/>
+<%= link_to 'Home', '/' %><br/>
+<%= link_to 'Login', '/users/login' %><br/>
+<%= link_to 'Contact details', '/static_pages/contact_us' %><br/>
