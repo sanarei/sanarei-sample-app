@@ -13,9 +13,11 @@ class ApplicationController < Sinatra::Base
     file.sync = true
     use Rack::CommonLogger, file
     set :logger, Logger.new(file)
+    enable :sessions
   end
 
   before do
+    @success = session.delete(:success)  # Grab the flash message, then clear it
     logger.info "Processing request: #{request.request_method} #{request.path}"
   end
 end
