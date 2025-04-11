@@ -8,5 +8,14 @@ class ApplicationController < Sinatra::Base
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
+    enable :logging
+    file = File.new("log/#{environment}.log", 'a+')
+    file.sync = true
+    use Rack::CommonLogger, file
+    set :logger, Logger.new(file)
+  end
+
+  before do
+    logger.info "Processing request: #{request.request_method} #{request.path}"
   end
 end
