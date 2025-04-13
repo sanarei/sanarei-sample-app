@@ -1,0 +1,13 @@
+<h3>Account details</h3>
+
+<ul>
+  <li><b>Name:</b><%= @current_user.name %></li>
+  <li><b>ID number:</b><%= @current_user.national_id %></li>
+  <li><b>Phone number:</b><%= @current_user.phone_number %></li>
+</ul>
+
+<br/>
+<br/>
+<%= link_to 'Home', '/' %><br/>
+<%= link_to 'Register', '/users/register' %><br/>
+<%= link_to 'Contact details', '/static_pages/contact_us' %><br/>
