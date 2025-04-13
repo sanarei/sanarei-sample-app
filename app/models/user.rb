@@ -12,15 +12,17 @@ require 'bcrypt'
 # == Fields
 # - +name+:: The full name of the user. Must be unique and present.
 # - +national_id+:: The user's national ID. Must be unique and present.
+# - +phone_number+:: The user's phone number. Must be unique and present. The phone number is
+# used fo =r logging in.
 # - +pin_digest+:: A bcrypt hash of the user's PIN. Never decrypted.
 #
 # == Virtual Attributes
 # - +pin+:: Virtual attribute used to set the PIN. Not stored directly.
 #
 # == Validations
-# - Presence validation for +name+, +national_id+
+# - Presence validation for +name+, +national_id+, +phone_number+
 # - Presence validation for +pin+ on create only
-# - Uniqueness validation for +name+ and +national_id+
+# - Uniqueness validation for +name+, +national_id+ and, +phone_number+
 #
 # == Mongoid Modules
 # - +Mongoid::Document+:: Adds MongoDB persistence
@@ -30,6 +32,7 @@ require 'bcrypt'
 #   user = User.new(
 #     name: "Jane Doe",
 #     national_id: "12345678",
+#     phone_number: "0711223344",
 #     pin: "4321"
 #   )
 #   user.save
@@ -43,6 +46,9 @@ require 'bcrypt'
 # @!attribute [rw] national_id
 #   @return [String] The user's national identification number
 #
+# @!attribute [rw] phone_number
+#   @return [String] The user's phone number
+#
 # @!attribute [r] pin
 #   @return [String, nil] The plain PIN value used only during assignment
 #
@@ -55,10 +61,11 @@ class User
 
   field :name, type: String
   field :national_id, type: String
+  field :phone_number, type: String
   field :pin_digest, type: String
 
-  validates :name, :national_id, presence: true
-  validates :name, :national_id, uniqueness: true
+  validates :name, :national_id, :phone_number, presence: true
+  validates :name, :national_id, :phone_number, uniqueness: true
   validates :pin, presence: true, on: :create
 
   attr_reader :pin
