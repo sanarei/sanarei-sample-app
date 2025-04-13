@@ -1,0 +1,32 @@
+<h3>Enter details you'd like to change below.</h3>
+
+<% if @errors %>
+  <br/>
+  <br/>
+  <b style="color: red;">Errors</b>
+  <ul style="color: red;">
+    <% @errors.each do |field, errors| %>
+      <li><%= "#{field}, #{errors.join(', ')}" %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<form action="/users/update" method="PATCH">
+  <label for="name">Full Name:</label><br>
+  <input type="text" id="name" name="name"><br><br>
+
+  <label for="national_id">National ID:</label><br>
+  <input type="text" id="national_id" name="national_id"><br><br>
+
+  <label for="phone_number">Phone number:</label><br>
+  <input type="text" id="phone_number" name="phone_number"><br><br>
+
+  <label for="pin">PIN:</label><br>
+  <input type="password" id="pin" name="pin"><br><br>
+
+  <input type="submit" value="Update">
+</form>
+
+<br/>
+<br/>
+<%= link_to 'Menu', '/' %><br/>

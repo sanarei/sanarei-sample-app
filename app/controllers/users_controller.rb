@@ -48,4 +48,31 @@ class UsersController < ApplicationController
     protected!
     erb :my_account
   end
+
+  ##
+  # Renders the edit form for the authenticated user's account details.
+  #
+  # This route is protected by HTTP Basic Authentication using the `protected!` helper.
+  # It loads the current user into +@current_user+ and renders the `:edit_account` view,
+  # which typically contains a form to update user information.
+  #
+  # == Route
+  #   GET /users/edit
+  #
+  # == Authentication
+  # - Requires valid HTTP Basic credentials.
+  # - Responds with 401 Unauthorized if credentials are invalid.
+  #
+  # == View Variables
+  # - +@current_user+:: The currently authenticated User object, whose details will be edited.
+  #
+  # == Example curl request (to view the form in browser)
+  #   curl -u 0712345678:1234 http://localhost:4000/users/edit
+  #
+  # @return [String] Rendered HTML for the edit account form
+  get '/edit' do
+    protected!
+    erb :edit
+  end
+
 end
