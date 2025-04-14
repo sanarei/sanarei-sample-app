@@ -1,11 +1,13 @@
 require './config/environment'
 require_relative '../helpers/link_helper'
 require_relative '../helpers/auth_helper'
+require_relative '../helpers/form_helper'
 
 class ApplicationController < Sinatra::Base
   set :host_authorization, { permitted_hosts: ENV['PROD_DOMAIN'] }
   helpers LinkHelper
   helpers AuthHelper
+  helpers FormHelper
 
   configure do
     set :public_folder, 'public'
