@@ -19,8 +19,37 @@ class UsersController < ApplicationController
     end
   end
 
-  get "/login" do
-    erb :login
+  ##
+  # Displays the main menu for an authenticated user.
+  #
+  # This route is protected by HTTP Basic Authentication via the `protected!` helper.
+  # It ensures that only logged-in users can access the personalized menu.
+  #
+  # The menu view (`:menu`) may include links or actions related to:
+  # - Editing account details
+  # - Viewing recent activity
+  # - Accessing app-specific features
+  #
+  # The authenticated user is accessible via +@current_user+ in the view.
+  #
+  # == Route
+  #   GET /users/menu
+  #
+  # == Authentication
+  # - Requires valid HTTP Basic credentials
+  # - If authentication fails, responds with 401 Unauthorized
+  #
+  # == View
+  # - Renders +views/users/menu.erb+
+  # - Expects +@current_user+ to be set (provided by `protected!`)
+  #
+  # == Example curl request
+  #   curl -u 0712345678:1234 http://localhost:4000/users/menu
+  #
+  # @return [String] Rendered HTML page for the authenticated user’s menu
+  get '/menu' do
+    protected!
+    erb :menu
   end
 
   ##
