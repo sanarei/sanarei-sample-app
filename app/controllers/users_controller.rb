@@ -75,6 +75,43 @@ class UsersController < ApplicationController
     erb :edit
   end
 
+  ##
+  # Updates the authenticated user's account details with permitted fields.
+  #
+  # This route uses HTTP Basic Authentication via the `protected!` helper to ensure
+  # only authorized users can access it. It uses strong parameter filtering through
+  # `permit_params` to prevent mass assignment vulnerabilities.
+  #
+  # == Route
+  #   PATCH /users/update
+  #
+  # == Request Method
+  #   Must be sent as POST with a hidden `_method=patch` input
+  #   since browsers don't support PATCH natively.
+  #
+  # == Authentication
+  # - Requires valid HTTP Basic credentials.
+  # - Sets +@current_user+ on success.
+  #
+  # == Parameters (form-encoded)
+  # - +name+ [String] — User’s full name (optional)
+  # - +phone_number+ [String] — User’s phone number (optional)
+  # - +national_id+ [String] — User’s ID number (optional)
+  # - +pin+ [String] — User’s PIN (optional)
+  #
+  # == Protected Fields
+  # - Fields not explicitly permitted (e.g., +_method+) are ignored.
+  # - Blank values (empty strings or whitespace) are removed before update.
+  #
+  # == Behavior
+  # - On success: Updates user and redirects to `/my_account`
+  # - On failure: Re-renders the edit form view (`:edit_account`)
+  #
+  # == Example curl request
+  #   curl -X POST -u 0712345678:1234 -d "_method=patch&name=Alice" \
+  #   http://localhost:4000/users/update
+  #
+  # @return [String] Redirects or renders edit view based on success
   patch "/update" do
     protected!
     allowed_fields = %w[name phone_number national_id]
