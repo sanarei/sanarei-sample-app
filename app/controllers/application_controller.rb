@@ -16,6 +16,7 @@ class ApplicationController < Sinatra::Base
     use Rack::CommonLogger, file
     set :logger, Logger.new(file)
     enable :sessions
+    enable :method_override
   end
 
   before do
