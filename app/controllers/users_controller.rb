@@ -75,4 +75,14 @@ class UsersController < ApplicationController
     erb :edit
   end
 
+  patch "/update" do
+    protected!
+    allowed_fields = %w[name phone_number national_id]
+    if @current_user.update_attributes(permit_params(*allowed_fields))
+      session[:success] = "Your account details have been updated!"
+      redirect '/users/my_account'
+    else
+      erb :edit_account
+    end
+  end
 end
