@@ -3,10 +3,12 @@ class UsersController < ApplicationController
     set :views, 'app/views/users'
   end
 
+  # TODO: Add yard documentation
   get "/register" do
     erb :register
   end
 
+  # TODO: Add yard documentation
   post "/register" do
     user = User.new(params)
     if user.save
