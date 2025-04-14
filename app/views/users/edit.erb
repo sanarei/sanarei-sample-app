@@ -11,7 +11,9 @@
   </ul>
 <% end %>
 
-<form action="/users/update" method="PATCH">
+<form action="/users/update" method="post">
+  <input type="hidden" name="_method" value="patch">
+
   <label for="name">Full Name:</label><br>
   <input type="text" id="name" name="name"><br><br>
 
